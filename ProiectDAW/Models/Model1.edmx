@@ -1,0 +1,667 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adoptie">
+          <Key>
+            <PropertyRef Name="AdoptieId" />
+          </Key>
+          <Property Name="AdoptieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NrInregistrare" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CaineId" Type="int" Nullable="false" />
+          <Property Name="PersoanaId" Type="int" Nullable="false" />
+          <Property Name="DataAdoptie" Type="date" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UpdateDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Caine">
+          <Key>
+            <PropertyRef Name="CaineId" />
+          </Key>
+          <Property Name="CaineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cod" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Gen" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="DataNasterii" Type="date" Nullable="false" />
+          <Property Name="Disponibil" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UpdateDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Judet">
+          <Key>
+            <PropertyRef Name="JudetID" />
+          </Key>
+          <Property Name="JudetID" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Localitate">
+          <Key>
+            <PropertyRef Name="LocalitateID" />
+          </Key>
+          <Property Name="LocalitateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="JudetID" Type="nvarchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persoana">
+          <Key>
+            <PropertyRef Name="PersoanaId" />
+          </Key>
+          <Property Name="PersoanaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Prenume" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CNP" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="DataNasterii" Type="date" Nullable="false" />
+          <Property Name="NrTelefon" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UpdateDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persoana_Detaliu">
+          <Key>
+            <PropertyRef Name="PersoanaId" />
+          </Key>
+          <Property Name="PersoanaId" Type="int" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LocuintaCurte" Type="bit" Nullable="false" />
+          <Property Name="LocalitateID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Detaliu">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Prenume" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DataNastere" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AspNetUsersId_AdoptieUserID">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Adoptie" Type="Self.Adoptie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adoptie">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsersId_CaineUserID">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Caine" Type="Self.Caine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caine">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsersId_PersoanaUserID">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Persoana" Type="Self.Persoana" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Persoana">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsersId_UserDetaliuUserID">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Detaliu" Type="Self.User_Detaliu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Detaliu">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CaineCaineId_AdoptieAdoptieId">
+          <End Role="Caine" Type="Self.Caine" Multiplicity="1" />
+          <End Role="Adoptie" Type="Self.Adoptie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caine">
+              <PropertyRef Name="CaineId" />
+            </Principal>
+            <Dependent Role="Adoptie">
+              <PropertyRef Name="CaineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JudetJudetID_LocalitateJudetID">
+          <End Role="Judet" Type="Self.Judet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Localitate" Type="Self.Localitate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Judet">
+              <PropertyRef Name="JudetID" />
+            </Principal>
+            <Dependent Role="Localitate">
+              <PropertyRef Name="JudetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID">
+          <End Role="Localitate" Type="Self.Localitate" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Persoana_Detaliu" Type="Self.Persoana_Detaliu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localitate">
+              <PropertyRef Name="LocalitateID" />
+            </Principal>
+            <Dependent Role="Persoana_Detaliu">
+              <PropertyRef Name="LocalitateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersoanaPersoanaId_AdoptiePersoanaId">
+          <End Role="Persoana" Type="Self.Persoana" Multiplicity="1" />
+          <End Role="Adoptie" Type="Self.Adoptie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persoana">
+              <PropertyRef Name="PersoanaId" />
+            </Principal>
+            <Dependent Role="Adoptie">
+              <PropertyRef Name="PersoanaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId">
+          <End Role="Persoana" Type="Self.Persoana" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Persoana_Detaliu" Type="Self.Persoana_Detaliu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persoana">
+              <PropertyRef Name="PersoanaId" />
+            </Principal>
+            <Dependent Role="Persoana_Detaliu">
+              <PropertyRef Name="PersoanaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="Adoptie" EntityType="Self.Adoptie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Caine" EntityType="Self.Caine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Judet" EntityType="Self.Judet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localitate" EntityType="Self.Localitate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persoana" EntityType="Self.Persoana" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persoana_Detaliu" EntityType="Self.Persoana_Detaliu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Detaliu" EntityType="Self.User_Detaliu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetUsersId_AdoptieUserID" Association="Self.FK_AspNetUsersId_AdoptieUserID">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Adoptie" EntitySet="Adoptie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsersId_CaineUserID" Association="Self.FK_AspNetUsersId_CaineUserID">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Caine" EntitySet="Caine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsersId_PersoanaUserID" Association="Self.FK_AspNetUsersId_PersoanaUserID">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Persoana" EntitySet="Persoana" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsersId_UserDetaliuUserID" Association="Self.FK_AspNetUsersId_UserDetaliuUserID">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="User_Detaliu" EntitySet="User_Detaliu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CaineCaineId_AdoptieAdoptieId" Association="Self.FK_CaineCaineId_AdoptieAdoptieId">
+            <End Role="Caine" EntitySet="Caine" />
+            <End Role="Adoptie" EntitySet="Adoptie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JudetJudetID_LocalitateJudetID" Association="Self.FK_JudetJudetID_LocalitateJudetID">
+            <End Role="Judet" EntitySet="Judet" />
+            <End Role="Localitate" EntitySet="Localitate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID" Association="Self.FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID">
+            <End Role="Localitate" EntitySet="Localitate" />
+            <End Role="Persoana_Detaliu" EntitySet="Persoana_Detaliu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersoanaPersoanaId_AdoptiePersoanaId" Association="Self.FK_PersoanaPersoanaId_AdoptiePersoanaId">
+            <End Role="Persoana" EntitySet="Persoana" />
+            <End Role="Adoptie" EntitySet="Adoptie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId" Association="Self.FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId">
+            <End Role="Persoana" EntitySet="Persoana" />
+            <End Role="Persoana_Detaliu" EntitySet="Persoana_Detaliu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="UserDetaliu">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nume" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prenume" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DataNastere" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_AspNetUsersId_UserDetaliuUserID" FromRole="UserDetaliu" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserDetalius" EntityType="Models.UserDetaliu" />
+          <EntitySet Name="Persoanas" EntityType="Models.Persoana" />
+          <EntitySet Name="AspNetUsers" EntityType="Models.AspNetUser" />
+          <AssociationSet Name="FK_AspNetUsersId_PersoanaUserID" Association="Models.FK_AspNetUsersId_PersoanaUserID">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Persoana" EntitySet="Persoanas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsersId_UserDetaliuUserID" Association="Models.FK_AspNetUsersId_UserDetaliuUserID">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="UserDetaliu" EntitySet="UserDetalius" />
+          </AssociationSet>
+          <EntitySet Name="Judets" EntityType="Models.Judet" />
+          <EntitySet Name="Localitates" EntityType="Models.Localitate" />
+          <EntitySet Name="PersoanaDetalius" EntityType="Models.PersoanaDetaliu" />
+          <AssociationSet Name="FK_JudetJudetID_LocalitateJudetID" Association="Models.FK_JudetJudetID_LocalitateJudetID">
+            <End Role="Judet" EntitySet="Judets" />
+            <End Role="Localitate" EntitySet="Localitates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId" Association="Models.FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId">
+            <End Role="Persoana" EntitySet="Persoanas" />
+            <End Role="Persoana_Detaliu" EntitySet="PersoanaDetalius" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID" Association="Models.FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID">
+            <End Role="Localitate" EntitySet="Localitates" />
+            <End Role="Persoana_Detaliu" EntitySet="PersoanaDetalius" />
+          </AssociationSet>
+          <EntitySet Name="Adopties" EntityType="Models.Adoptie" />
+          <EntitySet Name="Caines" EntityType="Models.Caine" />
+          <AssociationSet Name="FK_AspNetUsersId_AdoptieUserID" Association="Models.FK_AspNetUsersId_AdoptieUserID">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Adoptie" EntitySet="Adopties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersoanaPersoanaId_AdoptiePersoanaId" Association="Models.FK_PersoanaPersoanaId_AdoptiePersoanaId">
+            <End Role="Persoana" EntitySet="Persoanas" />
+            <End Role="Adoptie" EntitySet="Adopties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsersId_CaineUserID" Association="Models.FK_AspNetUsersId_CaineUserID">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Caine" EntitySet="Caines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CaineCaineId_AdoptieAdoptieId" Association="Models.FK_CaineCaineId_AdoptieAdoptieId">
+            <End Role="Caine" EntitySet="Caines" />
+            <End Role="Adoptie" EntitySet="Adopties" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Persoana">
+          <Key>
+            <PropertyRef Name="PersoanaId" />
+          </Key>
+          <Property Name="PersoanaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Prenume" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CNP" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="DataNasterii" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NrTelefon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_AspNetUsersId_PersoanaUserID" FromRole="Persoana" ToRole="AspNetUser" />
+          <NavigationProperty Name="Persoana_Detaliu" Relationship="Models.FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId" FromRole="Persoana" ToRole="Persoana_Detaliu" />
+          <NavigationProperty Name="Adopties" Relationship="Models.FK_PersoanaPersoanaId_AdoptiePersoanaId" FromRole="Persoana" ToRole="Adoptie" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persoanas" Relationship="Models.FK_AspNetUsersId_PersoanaUserID" FromRole="AspNetUser" ToRole="Persoana" />
+          <NavigationProperty Name="User_Detaliu" Relationship="Models.FK_AspNetUsersId_UserDetaliuUserID" FromRole="AspNetUser" ToRole="UserDetaliu" />
+          <NavigationProperty Name="Adopties" Relationship="Models.FK_AspNetUsersId_AdoptieUserID" FromRole="AspNetUser" ToRole="Adoptie" />
+          <NavigationProperty Name="Caines" Relationship="Models.FK_AspNetUsersId_CaineUserID" FromRole="AspNetUser" ToRole="Caine" />
+        </EntityType>
+        <Association Name="FK_AspNetUsersId_PersoanaUserID">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.Persoana" Role="Persoana" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Persoana">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsersId_UserDetaliuUserID">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.UserDetaliu" Role="UserDetaliu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserDetaliu">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Judet">
+          <Key>
+            <PropertyRef Name="JudetID" />
+          </Key>
+          <Property Name="JudetID" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Denumire" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Localitates" Relationship="Models.FK_JudetJudetID_LocalitateJudetID" FromRole="Judet" ToRole="Localitate" />
+        </EntityType>
+        <EntityType Name="Localitate">
+          <Key>
+            <PropertyRef Name="LocalitateID" />
+          </Key>
+          <Property Name="LocalitateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denumire" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JudetID" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Judet" Relationship="Models.FK_JudetJudetID_LocalitateJudetID" FromRole="Localitate" ToRole="Judet" />
+          <NavigationProperty Name="Persoana_Detaliu" Relationship="Models.FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID" FromRole="Localitate" ToRole="Persoana_Detaliu" />
+        </EntityType>
+        <EntityType Name="PersoanaDetaliu">
+          <Key>
+            <PropertyRef Name="PersoanaId" />
+          </Key>
+          <Property Name="PersoanaId" Type="Int32" Nullable="false" />
+          <Property Name="Adresa" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LocuintaCurte" Type="Boolean" Nullable="false" />
+          <Property Name="LocalitateID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Persoana" Relationship="Models.FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId" FromRole="Persoana_Detaliu" ToRole="Persoana" />
+          <NavigationProperty Name="Localitate" Relationship="Models.FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID" FromRole="Persoana_Detaliu" ToRole="Localitate" />
+        </EntityType>
+        <Association Name="FK_JudetJudetID_LocalitateJudetID">
+          <End Type="Models.Judet" Role="Judet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.Localitate" Role="Localitate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Judet">
+              <PropertyRef Name="JudetID" />
+            </Principal>
+            <Dependent Role="Localitate">
+              <PropertyRef Name="JudetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId">
+          <End Type="Models.Persoana" Role="Persoana" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.PersoanaDetaliu" Role="Persoana_Detaliu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persoana">
+              <PropertyRef Name="PersoanaId" />
+            </Principal>
+            <Dependent Role="Persoana_Detaliu">
+              <PropertyRef Name="PersoanaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID">
+          <End Type="Models.Localitate" Role="Localitate" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.PersoanaDetaliu" Role="Persoana_Detaliu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localitate">
+              <PropertyRef Name="LocalitateID" />
+            </Principal>
+            <Dependent Role="Persoana_Detaliu">
+              <PropertyRef Name="LocalitateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Adoptie">
+          <Key>
+            <PropertyRef Name="AdoptieId" />
+          </Key>
+          <Property Name="AdoptieId" Type="Int32" annotation:StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NrInregistrare" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CaineId" Type="Int32" Nullable="false" />
+          <Property Name="PersoanaId" Type="Int32" Nullable="false" />
+          <Property Name="DataAdoptie" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_AspNetUsersId_AdoptieUserID" FromRole="Adoptie" ToRole="AspNetUser" />
+          <NavigationProperty Name="Persoana" Relationship="Models.FK_PersoanaPersoanaId_AdoptiePersoanaId" FromRole="Adoptie" ToRole="Persoana" />
+          <NavigationProperty Name="Caine" Relationship="Models.FK_CaineCaineId_AdoptieAdoptieId" FromRole="Adoptie" ToRole="Caine" />
+        </EntityType>
+        <EntityType Name="Caine">
+          <Key>
+            <PropertyRef Name="CaineId" />
+          </Key>
+          <Property Name="CaineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cod" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gen" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DataNasterii" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Disponibil" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_AspNetUsersId_CaineUserID" FromRole="Caine" ToRole="AspNetUser" />
+          <NavigationProperty Name="Adopties" Relationship="Models.FK_CaineCaineId_AdoptieAdoptieId" FromRole="Caine" ToRole="Adoptie" />
+        </EntityType>
+        <Association Name="FK_AspNetUsersId_AdoptieUserID">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.Adoptie" Role="Adoptie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adoptie">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersoanaPersoanaId_AdoptiePersoanaId">
+          <End Type="Models.Persoana" Role="Persoana" Multiplicity="1" />
+          <End Type="Models.Adoptie" Role="Adoptie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persoana">
+              <PropertyRef Name="PersoanaId" />
+            </Principal>
+            <Dependent Role="Adoptie">
+              <PropertyRef Name="PersoanaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsersId_CaineUserID">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.Caine" Role="Caine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caine">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CaineCaineId_AdoptieAdoptieId">
+          <End Type="Models.Caine" Role="Caine" Multiplicity="1" />
+          <End Type="Models.Adoptie" Role="Adoptie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caine">
+              <PropertyRef Name="CaineId" />
+            </Principal>
+            <Dependent Role="Adoptie">
+              <PropertyRef Name="CaineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="UserDetalius">
+            <EntityTypeMapping TypeName="Models.UserDetaliu">
+              <MappingFragment StoreEntitySet="User_Detaliu">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+                <ScalarProperty Name="DataNastere" ColumnName="DataNastere" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persoanas">
+            <EntityTypeMapping TypeName="Models.Persoana">
+              <MappingFragment StoreEntitySet="Persoana">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NrTelefon" ColumnName="NrTelefon" />
+                <ScalarProperty Name="DataNasterii" ColumnName="DataNasterii" />
+                <ScalarProperty Name="CNP" ColumnName="CNP" />
+                <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="PersoanaId" ColumnName="PersoanaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Models.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Judets">
+            <EntityTypeMapping TypeName="Models.Judet">
+              <MappingFragment StoreEntitySet="Judet">
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+                <ScalarProperty Name="JudetID" ColumnName="JudetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localitates">
+            <EntityTypeMapping TypeName="Models.Localitate">
+              <MappingFragment StoreEntitySet="Localitate">
+                <ScalarProperty Name="JudetID" ColumnName="JudetID" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+                <ScalarProperty Name="LocalitateID" ColumnName="LocalitateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersoanaDetalius">
+            <EntityTypeMapping TypeName="Models.PersoanaDetaliu">
+              <MappingFragment StoreEntitySet="Persoana_Detaliu">
+                <ScalarProperty Name="LocalitateID" ColumnName="LocalitateID" />
+                <ScalarProperty Name="LocuintaCurte" ColumnName="LocuintaCurte" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="PersoanaId" ColumnName="PersoanaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Adopties">
+            <EntityTypeMapping TypeName="Models.Adoptie">
+              <MappingFragment StoreEntitySet="Adoptie">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DataAdoptie" ColumnName="DataAdoptie" />
+                <ScalarProperty Name="PersoanaId" ColumnName="PersoanaId" />
+                <ScalarProperty Name="CaineId" ColumnName="CaineId" />
+                <ScalarProperty Name="NrInregistrare" ColumnName="NrInregistrare" />
+                <ScalarProperty Name="AdoptieId" ColumnName="AdoptieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caines">
+            <EntityTypeMapping TypeName="Models.Caine">
+              <MappingFragment StoreEntitySet="Caine">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Disponibil" ColumnName="Disponibil" />
+                <ScalarProperty Name="DataNasterii" ColumnName="DataNasterii" />
+                <ScalarProperty Name="Gen" ColumnName="Gen" />
+                <ScalarProperty Name="Cod" ColumnName="Cod" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="CaineId" ColumnName="CaineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

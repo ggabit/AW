@@ -1,0 +1,135 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<ProiectDAW.Models.Caine>
+
+@{
+    ViewBag.Title = "Lista câinilor";
+    int index = 1;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Adaugă câine", "Create", null, new { @class = "btn btn-success btn-xs" })
+</p>
+@using (Html.BeginForm("Paginare", "Caine", FormMethod.Post))
+{
+    if (Request.Params["disp"] == null)
+    {
+        <div class="filter">
+            <label class="checkbox-inline"><input id="chk" type="checkbox" name="dispchk" value="1">Disponibili?</label>
+            <input type="submit" value="Filtrare" class="btn btn-info btn-xs" /> |
+            @Html.ActionLink("Reset", "Paginare", new { reset = 1 }, new { @class = "btn btn-warning btn-xs" })
+        </div>
+    }
+    else if (Request.Params["disp"] == "True")
+    {
+        <div class="filter">
+            <label class="checkbox-inline"><input id="chk" type="checkbox" name="dispchk" value="1" checked>Disponibili?</label>
+            <input type="submit" value="Filtrare" class="btn btn-info btn-xs" /> |
+            @Html.ActionLink("Reset", "Paginare", new { reset = 1 }, new { @class = "btn btn-warning btn-xs" })
+        </div>
+    }
+    else
+    {
+        <div class="filter">
+            <label class="checkbox-inline"><input id="chk" type="checkbox" name="dispchk" value="1">Disponibili?</label>
+            <input type="submit" value="Filtrare" class="btn btn-info btn-xs" /> |
+            @Html.ActionLink("Reset", "Paginare", new { reset = 1 }, new { @class = "btn btn-warning btn-xs" })
+        </div>
+    }
+}
+<table class="table" id="cainiTable">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Nume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Cod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Gen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().DataNasterii)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Disponibil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().UpdateDate)
+            </th>
+            <th>Opțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(index++).
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nume)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataNasterii)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disponibil)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateDate)
+                </td>
+                @if (item.Disponibil == true)
+                {
+                    <td>
+                        @Html.ActionLink("Editare", "Edit", new { id = item.CaineId }, new { @class = "btn btn-warning btn-xs" }) |
+                        @Html.ActionLink("Detalii", "Details", new { id = item.CaineId }, new { @class = "btn btn-info btn-xs" }) |
+                        @Html.ActionLink("Șterge", "Delete", new { id = item.CaineId }, new { @class = "btn btn-danger btn-xs" })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Editare", "Edit", new { id = item.CaineId }, new { @class = "btn btn-warning btn-xs" }) |
+                        @Html.ActionLink("Detalii", "Details", new { id = item.CaineId }, new { @class = "btn btn-info btn-xs" })
+                    </td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Paginare", new { pagina = page, disp = Request.Params["disp"] }))
+
+
+    <link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/dataTables.foundation.min.css" />
+
+    @section Scripts{
+        <script type="text/javascript" src="~/Content/DataTables/datatables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#cainiTable').DataTable({
+            "paging":   false
+            });
+            });
+        </script>
+    }

@@ -1,0 +1,41 @@
+﻿@using ProiectDAW.Models
+@model IEnumerable<ItemObject>
+@{
+    ViewBag.Title = "Utilizatori";
+    int index = 1;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Utilizator
+            </th>
+            <th>
+                Opțiuni
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(index++).
+                </td>
+                <td>
+                    @item.Item
+                </td>
+                <td>
+                    @Html.ActionLink("Detalii", "Utilizator", new { id = item.ItemID }, new { @class = "btn btn-info btn-xs" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

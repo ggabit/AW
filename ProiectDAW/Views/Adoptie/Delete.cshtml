@@ -1,0 +1,72 @@
+﻿@model ProiectDAW.Models.Adoptie
+
+@{
+    ViewBag.Title = "Ștergere";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h4>Confirmați ștergerea adopției?</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NrInregistrare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NrInregistrare)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataAdoptie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataAdoptie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersoanaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persoana.Nume)
+            @Html.DisplayFor(model => model.Persoana.Prenume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaineId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Caine.Nume)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Șterge" class="btn btn-danger" /> |
+    @Html.ActionLink("Înapoi la listă", "Index", null, new { @class = "btn btn-info btn-xs" })
+</div>
+    }
+</div>

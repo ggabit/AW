@@ -1,0 +1,142 @@
+﻿@model ProiectDAW.Models.PersoanaAdoptiiViewModel
+
+@{
+    ViewBag.Title = "Editare";
+    int index = 1;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<section class="row">
+    <article class="col-md-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Persoana</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.persoana.PersoanaId)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.persoana.Nume, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.persoana.Nume, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.persoana.Nume, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.persoana.Prenume, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.persoana.Prenume, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.persoana.Prenume, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.persoana.CNP, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.persoana.CNP, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.persoana.CNP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.persoana.DataNasterii, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.persoana.DataNasterii, new { htmlAttributes = new { @class = "form-control dn", Value = ViewBag.DataNasterii, @readonly = "" } })
+                        @Html.ValidationMessageFor(model => model.persoana.DataNasterii, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.persoana.NrTelefon, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.persoana.NrTelefon, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.persoana.NrTelefon, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Salvare" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+    </article>
+
+    <article class="col-md-6">
+        @if (!Model.adoptii.Any())
+        {
+            <h4><strong>@Model.persoana.Nume @Model.persoana.Prenume</strong> nu are adopții</h4>
+            <div>
+                @Html.ActionLink("Adaugă adopție", "AdaugaAdoptie", "Persoana", new { id = Model.persoana.PersoanaId }, new { @class = "btn btn-info btn-ms" })
+            </div>
+        }
+        else
+        {
+            <h4>Lista adopțiilor pentru <strong>@Model.persoana.Nume @Model.persoana.Prenume</strong></h4>
+            <hr />
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.NrInregistrare)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.DataAdoptie)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.CaineId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.UserId)
+                    </th>
+                    <th>Opțiuni</th>
+                </tr>
+
+                @foreach (var item in Model.adoptii)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NrInregistrare)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataAdoptie)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Caine.Nume)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalii", "Edit", "Adoptie", new { id = item.AdoptieId }, new { @class = "btn btn-warning btn-xs" }) |
+                            @Html.ActionLink("Șterge", "Delete", "Adoptie", new { id = item.AdoptieId }, new { @class = "btn btn-danger btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div>
+                @Html.ActionLink("Adaugă adopție", "AdaugaAdoptie", "Persoana", new { id = Model.persoana.PersoanaId }, new { @class = "btn btn-info btn-ms" })
+            </div>
+        }
+    </article>
+</section>
+
+<div>
+    @Html.ActionLink("Înapoi la listă", "Index", null, new { @class = "btn btn-info btn-xs" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    <script>
+        $(".dn").datepicker({
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true
+        });
+    </script>
+}

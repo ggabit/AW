@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProiectDAW.Models.Adoptie>
+
+@{
+    int index = 1;
+}
+
+<table class="table">
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NrInregistrare)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataAdoptie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CaineId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @(index++).
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NrInregistrare)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DataAdoptie)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Caine.Nume)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UpdateDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+    </td>
+</tr>
+}
+
+</table>

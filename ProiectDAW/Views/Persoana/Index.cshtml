@@ -1,0 +1,102 @@
+﻿@model IEnumerable<ProiectDAW.Models.Persoana>
+
+@{
+    ViewBag.Title = "Lista persoanelor";
+    int index = 1;
+}
+
+<h2>@ViewBag.Title (@ViewBag.DataCurenta)</h2>
+
+<p>
+    @Html.ActionLink("Adaugă o persoană", "Create", null, new { @class = "btn btn-success btn-xs" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prenume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CNP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataNasterii)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NrTelefon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>Opțiuni</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @(index++).
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CNP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataNasterii)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NrTelefon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @Html.ActionLink("Editare", "Edit", new { id = item.PersoanaId }, new { @class = "btn btn-warning btn-xs" }) |
+                @Html.ActionLink("Detalii", "Details", new { id = item.PersoanaId }, new { @class = "btn btn-success btn-xs" }) |
+                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalAdoptii" data-npersoana="@item.Nume" data-pnpersoana="@item.Prenume" data-persoanaid="@item.PersoanaId">Adopții</button> |
+                @Html.ActionLink("Șterge", "Delete", new { id = item.PersoanaId }, new { @class = "btn btn-danger btn-xs" })
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.Partial("_ModalaAdoptii")
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#modalAdoptii').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                //var recipient = button.data('whatever') // Extract info from data-* attributes
+                var persoanaId = button.data('persoanaid')
+                var numePersoana = button.data('npersoana')
+                var prenumePersoana = button.data('pnpersoana')
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('.modal-title').html(`Adopțiile persoanei ${numePersoana} ${prenumePersoana}`);
+                $.post("/Persoana/AdoptiilePersoanei",
+                    { "PersoanaId": `${persoanaId}` })
+                    .done(function (data) {
+                        $("#adoptii").html(data);
+                    });
+            });
+        });
+    </script>
+}

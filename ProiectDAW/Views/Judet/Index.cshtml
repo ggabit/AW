@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ProiectDAW.Models.Judet>
+
+@{
+    ViewBag.Title = "Lista județelor";
+    int index = 1;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Adaugă un județ", "Create",null,new { @class = "btn btn-success btn-xs" })
+</p>
+<table class="table">
+    
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Denumire (Indicativ)</th>
+            <th>Opțiuni</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(index++).</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Denumire) (@Html.DisplayFor(modelItem => item.JudetID))
+                </td>
+                <td>
+                    @Html.ActionLink("Detalii", "Edit", new { id = item.JudetID }, new { @class = "btn btn-info btn-xs" })
+                    @if (true)
+                    {
+                            <text>|</text> @Html.ActionLink("Șterge", "Delete", new { id = item.JudetID }, new { @class = "btn btn-danger btn-xs" })
+                            } 
+                        </td>
+            </tr>
+        }
+    </tbody>
+</table>

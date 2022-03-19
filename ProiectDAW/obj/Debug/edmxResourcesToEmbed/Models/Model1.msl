@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="UserDetalius">
+      <EntityTypeMapping TypeName="Models.UserDetaliu">
+        <MappingFragment StoreEntitySet="User_Detaliu">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Nume" ColumnName="Nume" />
+          <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+          <ScalarProperty Name="DataNastere" ColumnName="DataNastere" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Persoanas">
+      <EntityTypeMapping TypeName="Models.Persoana">
+        <MappingFragment StoreEntitySet="Persoana">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="NrTelefon" ColumnName="NrTelefon" />
+          <ScalarProperty Name="DataNasterii" ColumnName="DataNasterii" />
+          <ScalarProperty Name="CNP" ColumnName="CNP" />
+          <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+          <ScalarProperty Name="Nume" ColumnName="Nume" />
+          <ScalarProperty Name="PersoanaId" ColumnName="PersoanaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="Models.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Judets">
+      <EntityTypeMapping TypeName="Models.Judet">
+        <MappingFragment StoreEntitySet="Judet">
+          <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+          <ScalarProperty Name="JudetID" ColumnName="JudetID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Localitates">
+      <EntityTypeMapping TypeName="Models.Localitate">
+        <MappingFragment StoreEntitySet="Localitate">
+          <ScalarProperty Name="JudetID" ColumnName="JudetID" />
+          <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+          <ScalarProperty Name="LocalitateID" ColumnName="LocalitateID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersoanaDetalius">
+      <EntityTypeMapping TypeName="Models.PersoanaDetaliu">
+        <MappingFragment StoreEntitySet="Persoana_Detaliu">
+          <ScalarProperty Name="LocalitateID" ColumnName="LocalitateID" />
+          <ScalarProperty Name="LocuintaCurte" ColumnName="LocuintaCurte" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+          <ScalarProperty Name="PersoanaId" ColumnName="PersoanaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Adopties">
+      <EntityTypeMapping TypeName="Models.Adoptie">
+        <MappingFragment StoreEntitySet="Adoptie">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DataAdoptie" ColumnName="DataAdoptie" />
+          <ScalarProperty Name="PersoanaId" ColumnName="PersoanaId" />
+          <ScalarProperty Name="CaineId" ColumnName="CaineId" />
+          <ScalarProperty Name="NrInregistrare" ColumnName="NrInregistrare" />
+          <ScalarProperty Name="AdoptieId" ColumnName="AdoptieId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Caines">
+      <EntityTypeMapping TypeName="Models.Caine">
+        <MappingFragment StoreEntitySet="Caine">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Disponibil" ColumnName="Disponibil" />
+          <ScalarProperty Name="DataNasterii" ColumnName="DataNasterii" />
+          <ScalarProperty Name="Gen" ColumnName="Gen" />
+          <ScalarProperty Name="Cod" ColumnName="Cod" />
+          <ScalarProperty Name="Nume" ColumnName="Nume" />
+          <ScalarProperty Name="CaineId" ColumnName="CaineId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

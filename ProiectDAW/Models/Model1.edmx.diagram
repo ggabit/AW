@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d0cadad24c2b443686492eb910b5f640" Name="Diagram1">
+        <EntityTypeShape EntityType="Models.UserDetaliu" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Persoana" Width="1.5" PointX="8.125" PointY="0.75" />
+        <EntityTypeShape EntityType="Models.AspNetUser" Width="1.5" PointX="4.25" PointY="0.625" />
+        <AssociationConnector Association="Models.FK_AspNetUsersId_PersoanaUserID" />
+        <AssociationConnector Association="Models.FK_AspNetUsersId_UserDetaliuUserID" />
+        <EntityTypeShape EntityType="Models.Judet" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="Models.Localitate" Width="1.5" PointX="2.875" PointY="7.25" />
+        <EntityTypeShape EntityType="Models.PersoanaDetaliu" Width="1.5" PointX="10.75" PointY="1.25" />
+        <AssociationConnector Association="Models.FK_JudetJudetID_LocalitateJudetID" />
+        <AssociationConnector Association="Models.FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId" />
+        <AssociationConnector Association="Models.FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.375" PointY="8.6797900390625" />
+          <ConnectorPoint PointX="12.729166666666668" PointY="8.6797900390625" />
+          <ConnectorPoint PointX="12.729166666666668" PointY="5.1574645996093746" />
+          <ConnectorPoint PointX="12.322916666666668" PointY="5.1574645996093746" />
+          <ConnectorPoint PointX="12.322916666666668" PointY="3.9950972045898436" />
+          <ConnectorPoint PointX="12.166666666666668" PointY="3.9950972045898436" />
+          <ConnectorPoint PointX="12.166666666666668" PointY="3.6115159642333983" />
+          <ConnectorPoint PointX="11.59375" PointY="3.6115159642333983" />
+          <ConnectorPoint PointX="11.59375" PointY="3.422587890625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Models.Adoptie" Width="1.5" PointX="9.375" PointY="5.125" />
+        <EntityTypeShape EntityType="Models.Caine" Width="1.5" PointX="6.125" PointY="5.375" />
+        <AssociationConnector Association="Models.FK_AspNetUsersId_AdoptieUserID" ManuallyRouted="true" >
+          <ConnectorPoint PointX="5.75" PointY="4.3023461328125" />
+          <ConnectorPoint PointX="8.6354141666666653" PointY="4.3023461328124988" />
+          <ConnectorPoint PointX="8.8020808333333331" PointY="4.3023461328125" />
+          <ConnectorPoint PointX="10.1875" PointY="4.3023461328125" />
+          <ConnectorPoint PointX="10.1875" PointY="5.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Models.FK_PersoanaPersoanaId_AdoptiePersoanaId" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="Models.FK_AspNetUsersId_CaineUserID" />
+        <AssociationConnector Association="Models.FK_CaineCaineId_AdoptieAdoptieId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

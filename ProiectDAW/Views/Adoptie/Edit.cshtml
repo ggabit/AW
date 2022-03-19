@@ -1,0 +1,91 @@
+﻿@model ProiectDAW.Models.Adoptie
+
+@{
+    ViewBag.Title = "Editare";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Adopție</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.AdoptieId)
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.UpdateDate)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NrInregistrare, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NrInregistrare, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NrInregistrare, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CaineId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CaineId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CaineId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersoanaId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PersoanaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PersoanaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataAdoptie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DataAdoptie, new { htmlAttributes = new { @class = "form-control da", Value = ViewBag.DataAdoptiei, @readonly = "" } })
+                @Html.ValidationMessageFor(model => model.DataAdoptie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Actualizare" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Înapoi la listă", "Index", null, new { @class = "btn btn-info btn-xs" })
+</div>
+@section Scripts{
+    <script>
+       $(function () {
+           //console.log("S-a incarcat pagina");
+           $("#CaineId").empty();
+           var o = new Option('@ViewBag.nume', @ViewBag.id);
+           $(o).html('@ViewBag.nume');
+           $("#CaineId").append(o);
+           $.post("/Caine/Lista/")
+               .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (key, value) {
+                        //console.log(value);
+                        $("#CaineId").append("<option value=" + value.CaineId + ">" + value.Nume + "</option>");
+                    })
+               });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryui")
+    <script>
+        $(".da").datepicker({
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true
+        });
+    </script>
+}

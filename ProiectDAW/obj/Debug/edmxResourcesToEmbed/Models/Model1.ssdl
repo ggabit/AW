@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Adoptie">
+    <Key>
+      <PropertyRef Name="AdoptieId" />
+    </Key>
+    <Property Name="AdoptieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NrInregistrare" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CaineId" Type="int" Nullable="false" />
+    <Property Name="PersoanaId" Type="int" Nullable="false" />
+    <Property Name="DataAdoptie" Type="date" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UpdateDate" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Caine">
+    <Key>
+      <PropertyRef Name="CaineId" />
+    </Key>
+    <Property Name="CaineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nume" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cod" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Gen" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="DataNasterii" Type="date" Nullable="false" />
+    <Property Name="Disponibil" Type="bit" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UpdateDate" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Judet">
+    <Key>
+      <PropertyRef Name="JudetID" />
+    </Key>
+    <Property Name="JudetID" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="Denumire" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Localitate">
+    <Key>
+      <PropertyRef Name="LocalitateID" />
+    </Key>
+    <Property Name="LocalitateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Denumire" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JudetID" Type="nvarchar" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persoana">
+    <Key>
+      <PropertyRef Name="PersoanaId" />
+    </Key>
+    <Property Name="PersoanaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nume" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prenume" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CNP" Type="nvarchar" MaxLength="13" Nullable="false" />
+    <Property Name="DataNasterii" Type="date" Nullable="false" />
+    <Property Name="NrTelefon" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UpdateDate" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persoana_Detaliu">
+    <Key>
+      <PropertyRef Name="PersoanaId" />
+    </Key>
+    <Property Name="PersoanaId" Type="int" Nullable="false" />
+    <Property Name="Adresa" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LocuintaCurte" Type="bit" Nullable="false" />
+    <Property Name="LocalitateID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User_Detaliu">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Nume" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prenume" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataNastere" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_AspNetUsersId_AdoptieUserID">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Adoptie" Type="Self.Adoptie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Adoptie">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUsersId_CaineUserID">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Caine" Type="Self.Caine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Caine">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUsersId_PersoanaUserID">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Persoana" Type="Self.Persoana" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Persoana">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUsersId_UserDetaliuUserID">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="User_Detaliu" Type="Self.User_Detaliu" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User_Detaliu">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CaineCaineId_AdoptieAdoptieId">
+    <End Role="Caine" Type="Self.Caine" Multiplicity="1" />
+    <End Role="Adoptie" Type="Self.Adoptie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Caine">
+        <PropertyRef Name="CaineId" />
+      </Principal>
+      <Dependent Role="Adoptie">
+        <PropertyRef Name="CaineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JudetJudetID_LocalitateJudetID">
+    <End Role="Judet" Type="Self.Judet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Localitate" Type="Self.Localitate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Judet">
+        <PropertyRef Name="JudetID" />
+      </Principal>
+      <Dependent Role="Localitate">
+        <PropertyRef Name="JudetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID">
+    <End Role="Localitate" Type="Self.Localitate" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Persoana_Detaliu" Type="Self.Persoana_Detaliu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localitate">
+        <PropertyRef Name="LocalitateID" />
+      </Principal>
+      <Dependent Role="Persoana_Detaliu">
+        <PropertyRef Name="LocalitateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersoanaPersoanaId_AdoptiePersoanaId">
+    <End Role="Persoana" Type="Self.Persoana" Multiplicity="1" />
+    <End Role="Adoptie" Type="Self.Adoptie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persoana">
+        <PropertyRef Name="PersoanaId" />
+      </Principal>
+      <Dependent Role="Adoptie">
+        <PropertyRef Name="PersoanaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId">
+    <End Role="Persoana" Type="Self.Persoana" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Persoana_Detaliu" Type="Self.Persoana_Detaliu" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Persoana">
+        <PropertyRef Name="PersoanaId" />
+      </Principal>
+      <Dependent Role="Persoana_Detaliu">
+        <PropertyRef Name="PersoanaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="Adoptie" EntityType="Self.Adoptie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Caine" EntityType="Self.Caine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Judet" EntityType="Self.Judet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Localitate" EntityType="Self.Localitate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Persoana" EntityType="Self.Persoana" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Persoana_Detaliu" EntityType="Self.Persoana_Detaliu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_Detaliu" EntityType="Self.User_Detaliu" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AspNetUsersId_AdoptieUserID" Association="Self.FK_AspNetUsersId_AdoptieUserID">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Adoptie" EntitySet="Adoptie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUsersId_CaineUserID" Association="Self.FK_AspNetUsersId_CaineUserID">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Caine" EntitySet="Caine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUsersId_PersoanaUserID" Association="Self.FK_AspNetUsersId_PersoanaUserID">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Persoana" EntitySet="Persoana" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUsersId_UserDetaliuUserID" Association="Self.FK_AspNetUsersId_UserDetaliuUserID">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="User_Detaliu" EntitySet="User_Detaliu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CaineCaineId_AdoptieAdoptieId" Association="Self.FK_CaineCaineId_AdoptieAdoptieId">
+      <End Role="Caine" EntitySet="Caine" />
+      <End Role="Adoptie" EntitySet="Adoptie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JudetJudetID_LocalitateJudetID" Association="Self.FK_JudetJudetID_LocalitateJudetID">
+      <End Role="Judet" EntitySet="Judet" />
+      <End Role="Localitate" EntitySet="Localitate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID" Association="Self.FK_LocalitateLocalitateID_PersoanaDetaliuLocalitateID">
+      <End Role="Localitate" EntitySet="Localitate" />
+      <End Role="Persoana_Detaliu" EntitySet="Persoana_Detaliu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersoanaPersoanaId_AdoptiePersoanaId" Association="Self.FK_PersoanaPersoanaId_AdoptiePersoanaId">
+      <End Role="Persoana" EntitySet="Persoana" />
+      <End Role="Adoptie" EntitySet="Adoptie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId" Association="Self.FK_PersoanaPersoanaId_PersoanaDetaliuPersoanaId">
+      <End Role="Persoana" EntitySet="Persoana" />
+      <End Role="Persoana_Detaliu" EntitySet="Persoana_Detaliu" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

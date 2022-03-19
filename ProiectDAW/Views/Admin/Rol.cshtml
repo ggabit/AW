@@ -1,0 +1,51 @@
+﻿@using ProiectDAW.Models
+@model ItemObject
+
+@{
+    ViewBag.Title = "Rolul " + Model.Item;
+    int index = 1;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    @if (Model.list.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Utilizator
+                    </th>
+                    <th>
+                        Opțiuni
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.list)
+                {
+                    <tr>
+                        <td>
+                            @(index++).
+                        </td>
+                        <td>
+                            @item.Item
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalii", "Utilizator", new { id = item.ItemID }, new { @class = "btn btn-info btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <span class="label label-danger">Nu există utilizatori cu acest rol!</span>
+    }
+
+</div>

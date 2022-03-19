@@ -1,0 +1,94 @@
+﻿@using ProiectDAW.Models
+@model ProiectDAW.Models.PersoanaDetaliu
+
+@{
+    ViewBag.Title = "Persoana";
+    var persoana = (Persoana)ViewBag.persoana;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h3>@persoana.Nume @persoana.Prenume</h3>
+    <h5>CNP: @persoana.CNP</h5>
+    <h5>Telefon: @persoana.NrTelefon</h5>
+    <hr />
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.PersoanaId)
+
+    <div class="form-horizontal">
+        <h3>Detalii</h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Adresa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Adresa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Adresa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocuintaCurte, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.LocuintaCurte)
+                    @Html.ValidationMessageFor(model => model.LocuintaCurte, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("JudetID", "Județ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("JudetID", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocalitateID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.LocalitateID, null, "Selectați o localitate", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LocalitateID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@TempData["btnText"]" class="btn btn-@TempData["btnCSS"]" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Înapoi la listă", "Index", null, new { @class = "btn btn-info btn-xs" })
+</div>
+@section Scripts{
+    <script>
+        $(function () {
+            //console.log("S-a incarcat pagina...");
+            $("#JudetID").on("change", function () {
+                //console.log("Am schimbat judetul", $("#JudetID").val());
+                $("#LocalitateID").empty();
+                $("#LocalitateID").append("<option value>Selectati o localitate</option>");
+                $.post("/Localitate/Lista",
+                    { "judetID": `${$("#JudetID").val()}` })
+                    .done(function (data) {
+                        //console.log(data);
+                        $.each(data, function (key, value) {
+                            //console.log(value);
+                            $("#LocalitateID").append("<option value=" + value.LocalitateID + ">" + value.Denumire + "</option>");
+                        })
+                    });
+            });
+        });
+    </script>
+}
+
+
+

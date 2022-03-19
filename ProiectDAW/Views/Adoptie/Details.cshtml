@@ -1,0 +1,101 @@
+﻿@model ProiectDAW.Models.AdoptieViewModel
+
+@{
+    ViewBag.Title = "Detalii";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<section class="row">
+    <article class="col-md-6">
+        <h4>Adopție</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.adoptie.DataAdoptie)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.adoptie.DataAdoptie)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.adoptie.NrInregistrare)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.adoptie.NrInregistrare)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.adoptie.UpdateDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.adoptie.UpdateDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.adoptie.UserId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.adoptie.AspNetUser.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.adoptie.PersoanaId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.adoptie.Persoana.Nume)
+                @Html.DisplayFor(model => model.adoptie.Persoana.Prenume)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.adoptie.CaineId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.adoptie.Caine.Nume)
+            </dd>
+
+        </dl>
+        <p>
+            @Html.ActionLink("Editare", "Edit", new { id = Model.adoptie.AdoptieId }, new { @class = "btn btn-warning btn-xs" }) |
+            @Html.ActionLink("Înapoi la listă", "Index", null, new { @class = "btn btn-info btn-xs" })
+        </p>
+    </article>
+
+    <article class="col-md-6">
+        @if (ViewBag.goala == "1")
+        {
+
+        }
+        else
+        {
+            <h4>Detaliile persoanei <strong>@Model.adoptie.Persoana.Nume @Model.adoptie.Persoana.Prenume</strong></h4>
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.persoanaDetaliu.Adresa)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoanaDetaliu.Adresa)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.persoanaDetaliu.LocuintaCurte)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoanaDetaliu.LocuintaCurte)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.persoanaDetaliu.LocalitateID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoanaDetaliu.Localitate.Denumire) (@Html.DisplayFor(model => model.persoanaDetaliu.Localitate.Judet.Denumire))
+            </dd>
+        }
+    </article>
+</section>

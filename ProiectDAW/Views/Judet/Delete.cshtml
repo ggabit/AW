@@ -1,0 +1,31 @@
+﻿@model ProiectDAW.Models.Judet
+
+@{
+    ViewBag.Title = "Ștergere";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Confirmați ștergerea județului?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Denumire (Acronim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Denumire) (@Html.DisplayFor(model => model.JudetID))
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Confirmă ștergere" class="btn btn-danger" /> |
+            @Html.ActionLink("Înapoi la listă", "Index")
+        </div>
+    }
+</div>

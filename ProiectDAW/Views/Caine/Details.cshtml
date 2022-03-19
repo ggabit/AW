@@ -1,0 +1,135 @@
+﻿@model ProiectDAW.Models.CaineViewModel
+
+@{
+    ViewBag.Title = "Detalii";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<section class="row">
+    <article class="col-md-6">
+        <h4>Câine</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.caine.Nume)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.caine.Nume)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.caine.Cod)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.caine.Cod)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.caine.Gen)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.caine.Gen)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.caine.DataNasterii)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.caine.DataNasterii)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.caine.Disponibil)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.caine.Disponibil)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.caine.UpdateDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.caine.UpdateDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.caine.UserId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.caine.AspNetUser.Email)
+            </dd>
+
+        </dl>
+        <p>
+            @Html.ActionLink("Editare", "Edit", new { id = Model.caine.CaineId }, new { @class = "btn btn-warning btn-xs" }) |
+            @Html.ActionLink("Înapoi la listă", "Paginare", null, new { @class = "btn btn-info btn-xs" })
+        </p>
+    </article>
+        
+    <article class="col-md-6">
+        @if (ViewBag.goala == "1")
+        {
+            if (Model.caine.Gen == "F")
+            {
+                <h4><strong>@Model.caine.Nume</strong> nu este adoptată</h4>
+            }
+            else
+            {
+                <h4><strong>@Model.caine.Nume</strong> nu este adoptat</h4>
+            }
+            <hr />
+            <div>
+                @Html.ActionLink("Adaugă adopție", "AdaugaAdoptie", "Caine", new { id = Model.caine.CaineId }, new { @class = "btn btn-info btn-ms" })
+            </div>
+        }
+        else
+        {
+            <h4>Adopția lui <strong>@Model.caine.Nume</strong></h4>
+            <hr />
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.NrInregistrare)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.DataAdoptie)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.CaineId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.UserId)
+                    </th>
+                    <th>Opțiuni</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.adoptie.NrInregistrare)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.adoptie.DataAdoptie)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.adoptie.Caine.Nume)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.adoptie.AspNetUser.Email)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalii", "Edit", "Adoptie", new { id = Model.adoptie.AdoptieId }, new { @class = "btn btn-warning btn-xs" }) |
+                        @Html.ActionLink("Șterge", "Delete", "Adoptie", new { id = Model.adoptie.AdoptieId }, new { @class = "btn btn-danger btn-xs" })
+                    </td>
+                </tr>
+            </table>
+        }
+    </article>
+</section>

@@ -1,0 +1,146 @@
+﻿@model ProiectDAW.Models.PersoanaViewModel
+
+@{
+    ViewBag.Title = "Ștergere";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@ViewBag.StergereTitlu</h3>
+<section class="row">
+    <article class="col-md-6">
+        <h4>Persoana</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.persoana.Nume)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoana.Nume)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.persoana.Prenume)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoana.Prenume)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.persoana.CNP)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoana.CNP)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.persoana.DataNasterii)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoana.DataNasterii)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.persoana.NrTelefon)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoana.NrTelefon)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.persoana.UserId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoana.AspNetUser.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.persoana.UpdateDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.persoana.UpdateDate)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            if (ViewBag.Stergere != null)
+            {
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Șterge" class="btn btn-danger" /> |
+                    @Html.ActionLink("Înapoi la listă", "Index", null, new { @class = "btn btn-info btn-xs" })
+                </div>
+            }
+            else
+            {
+                <div>
+                    @Html.ActionLink("Înapoi la listă", "Index", null, new { @class = "btn btn-info btn-xs" })
+                </div>
+            }
+        }
+    </article>
+
+    <article class="col-md-6">
+        @if (ViewBag.StergereTitlu == "Confirmați ștergerea?")
+        {
+            <h4><strong>@Model.persoana.Nume @Model.persoana.Prenume</strong> nu are adopții</h4>
+        }
+        else
+        {
+            <h4>Lista adopțiilor pentru <strong>@Model.persoana.Nume @Model.persoana.Prenume</strong></h4>
+            <hr />
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.NrInregistrare)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.DataAdoptie)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.CaineId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.adoptie.UserId)
+                    </th>
+                    <th>Opțiuni</th>
+                </tr>
+
+                @foreach (var item in Model.adoptii)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NrInregistrare)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataAdoptie)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Caine.Nume)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalii", "Edit", "Adoptie", new { id = item.AdoptieId }, new { @class = "btn btn-warning btn-xs" }) |
+                            @Html.ActionLink("Șterge", "Delete", "Adoptie", new { id = item.AdoptieId }, new { @class = "btn btn-danger btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </article>
+</section>
+       
+

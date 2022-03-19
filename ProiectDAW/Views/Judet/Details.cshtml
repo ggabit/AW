@@ -1,0 +1,31 @@
+﻿@model ProiectDAW.Models.Judet
+
+@{
+    ViewBag.Title = "Detalii";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h4>Județ</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Indicativ
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JudetID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Denumire)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Denumire)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editare", "Edit", new { id = Model.JudetID }, new { @class = "btn btn-success btn-xs" }) |
+    @Html.ActionLink("Înapoi la listă", "Index")
+</p>

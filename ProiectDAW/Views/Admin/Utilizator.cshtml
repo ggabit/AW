@@ -1,0 +1,91 @@
+﻿@using ProiectDAW.Models
+@model ItemObject
+
+@{
+    ViewBag.Title = "Utilizatorul " + Model.Item;
+    int index = 1;
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>@Model.ItemID</h3>
+
+<div>
+    @if (Model.list.Count > 0)
+    {
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @foreach (var item in Model.list)
+                {
+                    if (item.SelectedItem)
+                    {
+                        <div class="form-group">
+                            @Html.Label(item.Item, htmlAttributes: new { @class = "control-label col-md-2 text-success" })
+                            <div class="col-md-2">
+                                <div class="checkbox">
+                                    @Html.CheckBox("listaRoluri", true, new { value = item.Item, id = item.Item })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            @Html.Label(item.Item, htmlAttributes: new { @class = "control-label col-md-2 text-danger" })
+                            <div class="col-md-2">
+                                <div class="checkbox">
+                                    @Html.CheckBox("listaRoluri", false, new { value = item.Item, id = item.Item })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        <input type="submit" value="Actualizare" class="btn btn-success" />
+                    </div>
+                </div>
+
+                @if (Session["updateUser"].ToString() == "1")
+                {
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div id="mesaj" class="alert alert-dismissible fade show @ViewBag.CSSAlert">
+                                <strong>
+                                    @ViewBag.MesajAlert
+                                </strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <span class="label label-danger">Nu există roluri implementate!</span>
+    }
+
+</div>
+@section Scripts {
+    @if (Session["updateUser"].ToString() == "1")
+    {
+        <script>
+            $('#mesaj').fadeTo(2000, 500)
+                .slideUp(500, function () {
+                    $('#mesaj').remove();
+                });
+        </script>
+        Session["updateUser"] = 0;
+        Session["updateUser0"] = 0;
+    }
+
+}

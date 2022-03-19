@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+@if (User.IsInRole("Administrator"))
+{
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrare <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Roluri", "Roluri", "Admin")</li>
+            <li role="separator" class="divider"></li>
+            <li>@Html.ActionLink("Utilizatori", "Utilizatori", "Admin")</li>
+        </ul>
+    </li>
+}
+@if (User.IsInRole("Operator")|| User.IsInRole("Administrator"))
+{
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operare <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Județe", "Index", "Judet")</li>
+        </ul>
+    </li>
+}
+@if((System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestiune <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Persoane", "Index", "Persoana")</li>
+            <li role="separator" class="divider"></li>
+            <li>@Html.ActionLink("Câini", "Paginare", "Caine")</li>
+            <li role="separator" class="divider"></li>
+            <li>@Html.ActionLink("Adopții", "Index", "Adoptie")</li>
+        </ul>
+    </li>
+}
+
+

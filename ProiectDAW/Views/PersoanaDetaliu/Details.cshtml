@@ -1,0 +1,50 @@
+﻿@model ProiectDAW.Models.PersoanaDetaliu
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PersoanaDetaliu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocuintaCurte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocuintaCurte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Persoana.Nume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persoana.Nume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Localitate.Denumire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localitate.Denumire)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PersoanaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
